@@ -41,11 +41,16 @@ public class Header
         return anchor;
     }
 
+    public String getTitle()
+    {
+        return title;
+    }
+
     public void addChild(Header header)
     {
         if (childHeaders == null)
         {
-            childHeaders = new ArrayList<>();
+            childHeaders = new ArrayList<Header>();
         }
 
         childHeaders.add(header);

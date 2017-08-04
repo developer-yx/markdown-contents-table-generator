@@ -57,9 +57,15 @@ public class MyUtil
             newChars.remove(newChars.size() - 1);
         }
 
-        return String.valueOf(newChars.toArray(new Character[newChars.size()]));
-    }
+        char[] newCharArray = new char[newChars.size()];
 
+        for (int i = 0; i < newCharArray.length; i++)
+        {
+            newCharArray[i] = newChars.get(i);
+        }
+
+        return String.valueOf(newCharArray).toLowerCase();
+    }
 
     public static void showErrorMsg(String msg)
     {
