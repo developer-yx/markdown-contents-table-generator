@@ -1,6 +1,6 @@
 <idea-plugin version="2">
-    <id>com.your.company.unique.plugin.id</id>
-    <name>Plugin display name here</name>
+    <id>com.yx.markdowntableofcontentsgenerator</id>
+    <name>Markdown Table of Contents Generator</name>
     <version>1.0</version>
     <vendor email="xiao.yang@neulion.com.cn" url="https://gitlab.neulion.com.cn:645/xiao.yang/markdown-table-of-contents-generator.git">markdown-table-of-contents-generator
     </vendor>

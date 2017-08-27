@@ -1,22 +1,18 @@
 package com.yx.plug.markdowntableofcontents;
 
-import com.intellij.ide.DataManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.DataConstants;
+import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.editor.SelectionModel;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,37 +31,26 @@ public class GenerateTableAction extends AnAction
     @Override
     public void actionPerformed(AnActionEvent anActionEvent)
     {
-        Editor editor = (Editor) anActionEvent.getDataContext().getData(CommonDataKeys.EDITOR.getName());
+        final Editor editor = anActionEvent.getRequiredData(CommonDataKeys.EDITOR);
 
-        FileEditorManager manager = FileEditorManager.getInstance(anActionEvent.getProject());
+        final Project project = anActionEvent.getRequiredData(CommonDataKeys.PROJECT);
 
-        VirtualFile[] files = manager.getSelectedFiles();
+        //Access document, caret, and selection
+        final Document document = editor.getDocument();
 
-        if (files == null || files.length <= 0)
-        {
-            MyUtil.showErrorMsg("Can NOT file the file !!!");
+        final SelectionModel selectionModel = editor.getSelectionModel();
 
-            return;
-        }
+        final int index = selectionModel.getSelectionStart();
 
-        File file = new File(files[0].getPath());
+        String table = processFile(document);
 
-        if (!checkMarkdownFile(file))
-        {
-            MyUtil.showErrorMsg("This Plugin is only available for Markdown file !!!");
+        //Making the replacement
+        WriteCommandAction.runWriteCommandAction(project, () -> document.insertString(index, table));
 
-            return;
-        }
-
-        processFile(file);
+        selectionModel.removeSelection();
     }
 
-    private boolean checkMarkdownFile(File file)
-    {
-        return file.getName().toLowerCase().endsWith(".md");
-    }
-
-    private void processFile(File file)
+    private String processFile(Document document)
     {
         BufferedReader bufferedReader = null;
 
@@ -73,13 +58,13 @@ public class GenerateTableAction extends AnAction
 
         try
         {
-            bufferedReader = new BufferedReader(new FileReader(file));
+            bufferedReader = new BufferedReader(new StringReader(document.getText()));
 
             checkTopLevelHeadline(bufferedReader, topLevelHeaders, 2);
 
             if (topLevelHeaders.size() <= 0)
             {
-                return;
+                return null;
             }
         }
         catch (Exception e)
@@ -102,7 +87,7 @@ public class GenerateTableAction extends AnAction
         {
             try
             {
-                bufferedReader = new BufferedReader(new FileReader(file));
+                bufferedReader = new BufferedReader(new StringReader(document.getText()));
 
                 while (!bufferedReader.readLine().equals(header.getLine()))
                 {
@@ -132,7 +117,7 @@ public class GenerateTableAction extends AnAction
 
         createContentsTable(builder, topLevelHeaders, 0);
 
-        writeFile(file, builder.toString());
+        return builder.toString();
     }
 
     private void createContentsTable(StringBuilder stringBuilder, List<Header> headers, int tab)
@@ -227,53 +212,5 @@ public class GenerateTableAction extends AnAction
         }
 
         return null;
-    }
-
-    private void writeFile(File file, String table)
-    {
-        BufferedReader bufferedReader = null;
-
-        BufferedWriter bufferedWriter = null;
-
-        StringBuilder builder = new StringBuilder();
-
-        try
-        {
-            bufferedReader = new BufferedReader(new FileReader(file));
-
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null)
-            {
-                builder.append(line + java.security.AccessController.doPrivileged(
-                        new sun.security.action.GetPropertyAction("line.separator")));
-            }
-
-            bufferedWriter = new BufferedWriter(new FileWriter(file));
-
-            bufferedWriter.write(table + java.security.AccessController.doPrivileged(
-                    new sun.security.action.GetPropertyAction("line.separator")));
-
-            bufferedWriter.write(builder.toString());
-
-            bufferedWriter.flush();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                bufferedReader.close();
-
-                bufferedWriter.close();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 }
