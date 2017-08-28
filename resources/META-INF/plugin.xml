@@ -39,6 +39,10 @@
             <action class="com.yx.plug.markdowntableofcontents.GenerateAnchorAction" id="GenerateAnchorAction"
                     text="Generate Anchors" description="Generate Anchors">
             </action>
+
+            <action class="com.yx.plug.markdowntableofcontents.GenerateAnchorForSignalLine" id="GenerateAnchorForSignalLine"
+                    text="Generate Anchors For Selection" description="Generate Anchors For Selections">
+            </action>
         </group>
 
     </actions>
