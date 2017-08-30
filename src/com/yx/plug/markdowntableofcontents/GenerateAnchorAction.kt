@@ -15,7 +15,7 @@ import java.io.StringReader
 import java.util.*
 
 
-class GenerateAnchorAction : BaseSelectionAction() {
+class GenerateAnchorAction : BaseAction() {
 
     override fun actionPerformed(anActionEvent: AnActionEvent?) {
 
@@ -103,14 +103,8 @@ class GenerateAnchorAction : BaseSelectionAction() {
 
 fun findHeaders(editor: Editor): MutableList<Header> {
     val document = editor.document
-    val selectionModel = editor.selectionModel
 
-    val start = selectionModel.selectionStart
-    val end = selectionModel.selectionEnd
-
-    val fileStr = document.text
-
-    val selectionStr = fileStr.substring(start, end)
+    val selectionStr = document.text
 
     var bufferedReader: BufferedReader? = null
 
