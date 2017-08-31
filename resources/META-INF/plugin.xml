@@ -32,15 +32,15 @@
         <group id="MarkdownGroup" text="Markdown" popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <action class="com.yx.plug.markdowntableofcontents.GenerateTableAction" id="GenerateTableAction"
-                    text="Generate Table of Contents" description="Generate Contents Table">
+                    text="Generate Contents Table" description="Generate Contents Table">
             </action>
 
             <action class="com.yx.plug.markdowntableofcontents.GenerateAnchorAction" id="GenerateAnchorAction"
-                    text="Generate Anchors" description="Generate Anchors">
+                    text="Generate Table Anchors" description="Generate Table Anchors">
             </action>
 
             <action class="com.yx.plug.markdowntableofcontents.GenerateAnchorForSignalLine" id="GenerateAnchorForSignalLine"
-                    text="Generate Anchors For Selection" description="Generate Anchor For Selection">
+                    text="Generate Anchor For Selection" description="Generate Anchor For Selection">
             </action>
         </group>
 
