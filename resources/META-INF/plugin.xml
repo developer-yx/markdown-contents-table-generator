@@ -1,11 +1,11 @@
 <idea-plugin version="2">
-    <id>com.yx.markdown.anchor.generator</id>
-    <name>Markdown Anchor Generator</name>
+    <id>com.yx.markdowntableofcontentsgenerator</id>
+    <name>Markdown Contents Table Generator</name>
     <version>1.0</version>
     <vendor>yx</vendor>
 
     <description><![CDATA[
-      <br>
+
     ]]></description>
 
     <!--<change-notes><![CDATA[-->
@@ -32,7 +32,7 @@
         <group id="MarkdownGroup" text="Markdown" popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <action class="com.yx.plug.markdowntableofcontents.GenerateTableAction" id="GenerateTableAction"
-                    text="Generate Table of Contents" description="Generate Table of Contents">
+                    text="Generate Table of Contents" description="Generate Contents Table">
             </action>
 
             <action class="com.yx.plug.markdowntableofcontents.GenerateAnchorAction" id="GenerateAnchorAction"
@@ -40,7 +40,7 @@
             </action>
 
             <action class="com.yx.plug.markdowntableofcontents.GenerateAnchorForSignalLine" id="GenerateAnchorForSignalLine"
-                    text="Generate Anchors For Selection" description="Generate Anchors For Selections">
+                    text="Generate Anchors For Selection" description="Generate Anchor For Selection">
             </action>
         </group>
 
