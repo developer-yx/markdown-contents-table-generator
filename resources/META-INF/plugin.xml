@@ -1,12 +1,11 @@
 <idea-plugin version="2">
-    <id>com.yx.markdowntableofcontentsgenerator</id>
-    <name>Markdown Table of Contents Generator</name>
+    <id>com.yx.markdown.anchor.generator</id>
+    <name>Markdown Anchor Generator</name>
     <version>1.0</version>
-    <vendor email="xiao.yang@neulion.com.cn" url="https://gitlab.neulion.com.cn:645/xiao.yang/markdown-table-of-contents-generator.git">markdown-table-of-contents-generator
-    </vendor>
+    <vendor>yx</vendor>
 
     <description><![CDATA[
-      https://gitlab.neulion.com.cn:645/xiao.yang/markdown-table-of-contents-generator.git<br>
+      <br>
     ]]></description>
 
     <!--<change-notes><![CDATA[-->
