@@ -124,18 +124,13 @@ public class GenerateTableAction extends BaseAction
 
         for (Header header : headers)
         {
-            stringBuilder.append(prefix + createCatalogue(header) + "\n");
+            stringBuilder.append(prefix + MyUtil.createHeaderLine(header) + "\n");
 
             if (header.getChildHeadlins() != null)
             {
                 createContentsTable(stringBuilder, header.getChildHeadlins(), tab + 1);
             }
         }
-    }
-
-    private static String createCatalogue(Header header)
-    {
-        return "- [" + header.getTitle() + "](#" + header.getAnchor() + ")";
     }
 
     private static void checkTopLevelHeadline(BufferedReader reader, List<Header> topLevel, int headlineLevel)

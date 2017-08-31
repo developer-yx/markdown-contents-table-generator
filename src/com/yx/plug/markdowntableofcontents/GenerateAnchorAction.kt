@@ -12,8 +12,10 @@ import com.intellij.openapi.project.Project
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.StringReader
-import java.util.*
 
+fun buildAnchor(anchor: String): String {
+    return "<a name=\"$anchor\"></a>"
+}
 
 class GenerateAnchorAction : BaseAction() {
 
@@ -61,11 +63,7 @@ class GenerateAnchorAction : BaseAction() {
             }
         })
 
-        WriteCommandAction.runWriteCommandAction(project) { document.insertString(index, "\n" + buildAnchor(header)) }
-    }
-
-    fun buildAnchor(header: Header): String {
-        return "<a name=\"${header.anchor}\"></a>"
+        WriteCommandAction.runWriteCommandAction(project) { document.insertString(index, "\n" + buildAnchor(header.anchor)) }
     }
 
     fun findIndexOfHeader(content: String, header: Header): Int {

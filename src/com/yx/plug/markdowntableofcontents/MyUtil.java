@@ -7,6 +7,16 @@ import java.util.List;
 
 public class MyUtil
 {
+    public static String createHeaderLine(Header header)
+    {
+        return createHeaderLine(header.getTitle(), header.getAnchor());
+    }
+
+    public static String createHeaderLine(String title, String anchor)
+    {
+        return "- [" + title + "](#" + anchor + ")";
+    }
+
     public static boolean isHeader(String line)
     {
         String[] temp = line.trim().split(" ");
